@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <!-- Matches display-board.svg board background #F5DEB3 -->
+    <linearGradient id="board" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f5deb3"/>
+      <stop offset="1" stop-color="#e8c98a"/>
+    </linearGradient>
+
+    <!-- ***** v2 ***** -->
+    <!--
+      White chip:
+      - Flat ivory surface (no center bright spot)
+      - Slightly darker toward edges = ambient occlusion / rim depth
+      - NOT lighter in center — that's what causes the sphere illusion
+    -->
+    <radialGradient id="ws" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ede6d4"/>   <!-- flat surface, uniform -->
+      <stop offset="68%"  stop-color="#e8e0cc"/>   <!-- same flat surface -->
+      <stop offset="85%"  stop-color="#cfc5ae"/>   <!-- rim starts darkening -->
+      <stop offset="100%" stop-color="#b8ac96"/>   <!-- outer edge (bevel shadow) -->
+    </radialGradient>
+
+    <!--
+      Black chip:
+      - Same approach: flat dark surface, darker toward outer edge only
+    -->
+    <radialGradient id="bs" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#2e1e14"/>   <!-- flat surface, uniform -->
+      <stop offset="68%"  stop-color="#271810"/>   <!-- same flat surface -->
+      <stop offset="85%"  stop-color="#160d06"/>   <!-- rim starts darkening -->
+      <stop offset="100%" stop-color="#0a0502"/>   <!-- outer edge (bevel shadow) -->
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="url(#board)"/>
+
+  <!-- Fanorona board grid: 3×3 nodes at 4, 16, 28 — fills nearly the full icon -->
+  <g stroke="#b8860b" stroke-opacity="0.7" stroke-width="0.9" stroke-linecap="round">
+    <!-- Rows -->
+    <line x1="4"  y1="4"  x2="28" y2="4"/>
+    <line x1="4"  y1="16" x2="28" y2="16"/>
+    <line x1="4"  y1="28" x2="28" y2="28"/>
+    <!-- Columns -->
+    <line x1="4"  y1="4"  x2="4"  y2="28"/>
+    <line x1="16" y1="4"  x2="16" y2="28"/>
+    <line x1="28" y1="4"  x2="28" y2="28"/>
+    <!-- Full diagonals -->
+    <line x1="4"  y1="4"  x2="28" y2="28"/>
+    <line x1="28" y1="4"  x2="4"  y2="28"/>
+    <!-- Half-diagonals (fanorona's distinctive asterisk pattern) -->
+    <line x1="4"  y1="16" x2="16" y2="4"/>
+    <line x1="16" y1="4"  x2="28" y2="16"/>
+    <line x1="28" y1="16" x2="16" y2="28"/>
+    <line x1="16" y1="28" x2="4"  y2="16"/>
+  </g>
+
+  <!-- White stone — centre of square 1 (top-left X intersection) -->
+  <circle cx="10" cy="10" r="7" fill="url(#ws)"/>
+  <circle cx="10" cy="10" r="7" stroke="#b8860b" stroke-opacity="0.4" stroke-width="0.5" fill="none"/>
+  <circle cx="10" cy="10" r="6.25" fill="none" stroke="#b0a48c" stroke-width="0.3"/>
+
+  <!-- Black stone — centre of square 4 (bottom-right X intersection) -->
+  <circle cx="22" cy="22" r="7" fill="url(#bs)"/>
+  <circle cx="22" cy="22" r="7" stroke="#b8860b" stroke-opacity="0.3" stroke-width="0.5" fill="none"/>
+  <circle cx="22" cy="22" r="6.25" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+</svg>
