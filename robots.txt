@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lightzane.github.io/fanorona/sitemap.xml
