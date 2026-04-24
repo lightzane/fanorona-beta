@@ -1,22 +1,110 @@
 <svg width="270" height="150" viewBox="0 0 270 150" fill="none" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <radialGradient id="ws" cx="50%" cy="50%" r="50%">
-    <stop offset="0%"   stop-color="var(--ft-w-stop-base, #e5dcc5)"/>
-    <stop offset="68%"  stop-color="var(--ft-w-stop-mid, #f3ece0)"/>
-    <stop offset="85%"  stop-color="var(--ft-w-stop-rim, #c4b9a3)"/>
-    <stop offset="100%" stop-color="var(--ft-w-stop-edge, #ffffff)"/>
-  </radialGradient>
-  <radialGradient id="bs" cx="50%" cy="50%" r="50%">
-    <stop offset="0%"   stop-color="var(--ft-b-stop-base, #4a3b30)"/>
-    <stop offset="68%"  stop-color="var(--ft-b-stop-mid, #2c241d)"/>
-    <stop offset="85%"  stop-color="var(--ft-b-stop-rim, #050302)"/>
-    <stop offset="100%" stop-color="var(--ft-b-stop-edge, #7a7065)"/>
-  </radialGradient>
+    <radialGradient id="ws" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="var(--ft-w-stop-base, #e5dcc5)"/>   <!-- same flat surface, it's like paint worn out from hand grease -->
+        <stop offset="68%"  stop-color="var(--ft-w-stop-mid, #f3ece0)"/>   <!-- same flat surface -->
+        <stop offset="85%"  stop-color="var(--ft-w-stop-rim, #c4b9a3)"/>   <!-- rim starts darkening -->
+        <stop offset="100%" stop-color="var(--ft-w-stop-edge, #ffffff)"/>   <!-- outer edge (bevel shadow) -->
+    </radialGradient>
+    <radialGradient id="bs" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="var(--ft-b-stop-base, #4a3b30)"/>   <!-- same flat surface, it's like paint worn out from hand grease -->
+        <stop offset="68%"  stop-color="var(--ft-b-stop-mid, #2c241d)"/>   <!-- same flat surface -->
+        <stop offset="85%"  stop-color="var(--ft-b-stop-rim, #050302)"/>   <!-- rim starts darkening -->
+        <stop offset="100%" stop-color="var(--ft-b-stop-edge, #7a7065)"/>   <!-- outer edge (bevel shadow) -->
+    </radialGradient>
+    <linearGradient id="wss" x1="0" y1="0" x2="1" y2="1" style="--shine: var(--ft-w-inner-stroke-shine, #fff); --ft-w-inner-stroke: #e5dcc5;">
+        <stop offset="0%" stop-color="var(--shine)" /> 
+        <stop offset="15%" stop-color="var(--shine)" /> 
+        <stop offset="25%" stop-color="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" /> 
+        <stop offset="75%" stop-color="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" /> 
+        <stop offset="85%" stop-color="var(--shine)" /> 
+        <stop offset="100%" stop-color="var(--shine)" /> 
+    </linearGradient>
+    <linearGradient id="bss" x1="0" y1="0" x2="1" y2="1" style="--shine: var(--ft-b-inner-stroke-shine, hsl(0, 8%, 35%))">
+        <stop offset="0%" stop-color="var(--shine)" /> 
+        <stop offset="15%" stop-color="var(--shine)" /> 
+        <stop offset="25%" stop-color="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" /> 
+        <stop offset="75%" stop-color="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" /> 
+        <stop offset="85%" stop-color="var(--shine)" /> 
+        <stop offset="100%" stop-color="var(--shine)" /> 
+    </linearGradient>
+    <filter id="shadow">
+        <feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="rgba(12, 10, 9, 0.65)" />
+    </filter>
+</defs>
+<defs>
+  <clipPath id="board-clip">
+    <rect width="270" height="150" rx="10" ry="10" />
+  </clipPath>
+</defs>
+<defs>
+  <filter id="wood" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence 
+          type="fractalNoise" 
+          baseFrequency="0.01 0.4" 
+          numOctaves="3" 
+          result="noise"
+      />
+      <feColorMatrix 
+          in="noise" 
+          type="matrix" 
+          values="0.4   0    0    0   0.2 
+                  0.2  0.1   0    0   0.1 
+                  0    0    0    0    0 
+                  0    0    0    1    0" 
+          result="woodTexture" 
+      />
+      <feDisplacementMap 
+          in="woodTexture" 
+          in2="noise" 
+          scale="10" 
+          xChannelSelector="R" 
+          yChannelSelector="G" 
+          result="warpedWood"
+      />
+      <feBlend in="warpedWood" in2="SourceGraphic" mode="multiply" />
+  </filter>
+  <filter id="marble" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence 
+          type="fractalNoise" 
+          baseFrequency="0.04 0.09" 
+          numOctaves="5"
+          seed="5" 
+          result="noise" 
+      />
+      <feColorMatrix 
+          in="noise" 
+          type="matrix" 
+          values="1 0 0 0 0.8 
+              0 1 0 0 0.9 
+              0 0 1 0 1 
+              0 0 0 0.4 0" 
+          result="marbleTexture" 
+      />
+      <feDisplacementMap 
+          in="marbleTexture" 
+          in2="noise" 
+          scale="25" 
+          xChannelSelector="R" 
+          yChannelSelector="G" 
+          result="warpedMarble" 
+      />
+      <feBlend in="warpedMarble" in2="SourceGraphic" mode="hard-light" />
+  </filter>
 </defs>
 <g id="fanorona">
     <g id="bg">
         <path id="board" d="M0 16C0 10.3995 0 7.59921 1.08993 5.46009C2.04867 3.57847 3.57847 2.04867 5.46009 1.08993C7.59921 0 10.3995 0 16 0H135H254C259.601 0 262.401 0 264.54 1.08993C266.422 2.04867 267.951 3.57847 268.91 5.46009C270 7.59921 270 10.3995 270 16V134C270 139.601 270 142.401 268.91 144.54C267.951 146.422 266.422 147.951 264.54 148.91C262.401 150 259.601 150 254 150H16C10.3995 150 7.59921 150 5.46009 148.91C3.57847 147.951 2.04867 146.422 1.08993 144.54C0 142.401 0 139.601 0 134V16Z" fill="#F5DEB3"/>
     </g>
+
+    <rect
+      class="texture-board"
+      width="270" height="150"
+      clip-path="url(#board-clip)"
+      fill="var(--ft-board-fill, #F5DEB3)" 
+      filter="url(#wood)" 
+      style="pointer-events: none; mix-blend-mode: overlay;"
+    />
     
     <path id="union-intersections" d="M255.518 14.5127L256.704 15.71L256 16.4082V135H255.518V136H195.907L195.713 136.197L195.513 136H15.0176V135.018L15 135H14V15H15L15.0176 14.9824V14H255.518V14.5127ZM17.4141 134H44V107.414L17.4141 134ZM46 134H72.5859L46 107.414V134ZM76.9316 134H104V107.377L76.9316 134ZM106 134H132.586L106 107.414V134ZM137.429 134H164V107.647L137.429 134ZM166 134H192.586L166 107.414V134ZM197.874 134H224V107.437L197.874 134ZM226 134H252.586L226 107.414V134ZM196 133.053L222.608 106H196V133.053ZM136 132.6L162.821 106H136V132.6ZM16 132.586L42.5859 106H16V132.586ZM74 132.586V106H47.4141L74 132.586ZM134 132.586V106H107.414L134 132.586ZM194 132.586V106H167.414L194 132.586ZM254 132.586V106H227.414L254 132.586ZM76 132.11L102.548 106H76V132.11ZM16 104H42.5859L16 77.4141V104ZM47.4141 104H74V77.4141L47.4141 104ZM76 104H102.586L76 77.4141V104ZM107.434 104H134V77.8701L107.434 104ZM136 104H162.586L136 77.4141V104ZM167.679 104H194V77.8955L167.679 104ZM196 104H222.586L196 77.4141V104ZM227.38 104H254V76.9336L227.38 104ZM166 102.848L193.071 76H166V102.848ZM106 102.604L133.05 76H106V102.604ZM44 102.586V76H17.4141L44 102.586ZM46 102.586L72.5859 76H46V102.586ZM104 102.586V76H77.4141L104 102.586ZM164 102.586V76H137.414L164 102.586ZM224 102.586V76H197.414L224 102.586ZM226 102.551L252.114 76H226V102.551ZM17.4141 74H44V47.4141L17.4141 74ZM46 74H72.5859L46 47.4141V74ZM77.4141 74H104V47.4141L77.4141 74ZM106 74H132.586L106 47.4141V74ZM137.936 74H164V48.3643L137.936 74ZM166 74H192.586L166 47.4141V74ZM197.929 74H224V48.1436L197.929 74ZM226 74H252.586L226 47.4141V74ZM136 73.0986L163.552 46H136V73.0986ZM196 73.0957L223.321 46H196V73.0957ZM16 72.5859L42.5859 46H16V72.5859ZM74 72.5859V46H47.4141L74 72.5859ZM76 72.5859L102.586 46H76V72.5859ZM134 72.5859V46H107.414L134 72.5859ZM194 72.5859V46H167.414L194 72.5859ZM254 72.5859V46H227.414L254 72.5859ZM16 44H42.5859L16 17.4141V44ZM47.4141 44H74V17.4141L47.4141 44ZM76 44H102.586L76 17.4141V44ZM107.414 44H134V17.4141L107.414 44ZM136 44H162.586L136 17.4141V44ZM168.438 44H194V18.8584L168.438 44ZM196 44H222.586L196 17.4141V44ZM228.179 44H254V18.3916L228.179 44ZM166 43.5918L194 16.0527V16H166V43.5918ZM226 43.3438L253.571 16H226V43.3438ZM44 42.5859V16H17.4141L44 42.5859ZM46 42.5859L72.5859 16H46V42.5859ZM104 42.5859V16H77.4141L104 42.5859ZM106 42.5859L132.586 16H106V42.5859ZM164 42.5859V16H137.414L164 42.5859ZM224 42.5859V16H197.414L224 42.5859Z" fill="#DFBC7A"/>
 
@@ -118,53 +206,53 @@
     
     <g id="stones">
         <g id="black">
-            <g><circle cx="15" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="15" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="45" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="45" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="75" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="105" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="105" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="135" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="135" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="165" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="195" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="195" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="225" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="255" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="255" cy="45" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="15" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="75" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="75" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="75" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="165" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="75" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="45" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="45" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="75" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="105" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="105" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="135" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="135" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="165" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="195" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="195" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="225" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="255" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="255" cy="15" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
-            <g><circle cx="225" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="75" r="8" fill="none" stroke="var(--ft-b-inner-stroke, rgba(255, 255, 255, 0.25))" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="15" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="15" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="45" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="45" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="75" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="105" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="105" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="135" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="135" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="165" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="195" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="195" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="225" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="255" cy="45" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="255" cy="45" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="15" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="15" cy="75" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="75" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="75" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="165" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="75" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="45" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="45" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="75" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="75" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="105" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="105" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="135" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="135" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="165" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="165" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="195" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="195" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="225" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="255" cy="15" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="255" cy="15" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
+            <g filter="url(#shadow)"><circle cx="225" cy="75" r="9.75" fill="url(#bs)" stroke="var(--ft-b-outer-stroke, black)" stroke-width="0.5"/><circle cx="225" cy="75" r="8" fill="none" stroke="url(#bss)" stroke-width="0.7"/></g>
         </g>
 
         <g id="white">
-            <g><circle cx="15" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="15" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="255" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="105" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="105" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="75" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="195" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="75" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="255" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="75" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="195" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="45" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="75" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="75" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="165" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="165" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="135" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="135" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="225" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="225" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="255" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="105" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="15" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="15" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="165" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="165" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="45" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="75" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="75" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="225" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="225" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="105" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="135" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="135" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="195" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="135" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
-            <g><circle cx="45" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="75" r="8" fill="none" stroke="var(--ft-w-inner-stroke, rgba(255, 255, 255, 0.9))" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="15" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="15" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="255" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="105" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="105" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="75" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="195" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="75" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="255" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="75" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="195" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="45" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="75" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="75" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="165" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="165" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="135" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="135" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="225" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="225" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="255" cy="105" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="255" cy="105" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="15" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="15" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="165" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="165" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="45" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="75" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="75" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="225" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="225" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="105" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="105" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="135" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="135" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="195" cy="135" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="195" cy="135" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
+            <g filter="url(#shadow)"><circle cx="45" cy="75" r="9.75" fill="url(#ws)" stroke="var(--ft-w-outer-stroke, #8a7d65)" stroke-width="0.5"/><circle cx="45" cy="75" r="8" fill="none" stroke="url(#wss)" stroke-width="0.3"/></g>
         </g>
     </g>
 </g>
